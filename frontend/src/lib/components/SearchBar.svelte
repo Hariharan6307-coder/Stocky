@@ -19,6 +19,11 @@
 			isDropdownVisible = false;
 		}
 	}
+
+	function handleStockSelect(stockName) {
+		searchQuery = stockName;
+		isDropdownVisible = false;
+	}
 </script>
 
 <svelte:window on:click={handleClickOutside} />
@@ -40,7 +45,10 @@
 			{#if isDropdownVisible}
 				<div class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg z-10">
 					{#each stocks as stock}
-						<div class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0">
+						<div 
+							class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+							on:click={() => handleStockSelect(stock.name)}
+						>
 							<span class="font-medium text-gray-800">{stock.name}</span>
 							<span class="w-16 px-2 py-1 rounded-full text-sm font-semibold text-center {stock.isPositive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
 								{stock.percentage}%
